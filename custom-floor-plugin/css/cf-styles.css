@@ -1,0 +1,13 @@
+.hidden {
+    display: none;
+}
+.cf-lift-option-value, .cf-floor-count-value {
+    font-weight: 300;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+}
+
+.cf-floor-count-value {
+    margin-left: 15px;
+}

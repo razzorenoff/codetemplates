@@ -1,0 +1,67 @@
+/* Telegram message */
+.elementor-widget-telegram_carousel .telegram-carousel .telegram-message {
+    transform: translateX(0px) translateY(0px);
+    display: flex;
+    flex-direction: row;
+    border-color: #ecf0f1 !important;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0px 9px 9px 0px #eaeaea;
+    margin: 10px;
+}
+
+/* Author avatar */
+.telegram-carousel .telegram-message .author-avatar {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Reply message container */
+.telegram-carousel .telegram-message .reply_to_message_container {
+    background-color: #f4f9ff;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+/* Telegram carousel */
+.elementor-widget-telegram_carousel .telegram-carousel {
+    display: flex;
+}
+
+/* Message */
+.telegram-carousel .telegram-message .message {
+    padding: 10px;
+}
+
+/* Comment count */
+.telegram-carousel .telegram-message .comment_count {
+    display: none;
+}
+
+/* Date */
+.telegram-carousel .telegram-message .date {
+    display: none;
+}
+
+/* Paragraph */
+.telegram-carousel .telegram-message .reply_to_message_container p {
+    font-size: 12px;
+}
+
+/* Author */
+.telegram-carousel .telegram-message .author {
+    font-weight: 600;
+    padding: 10px;
+}
+
+.telegram-carousel .telegram-message .author img {
+    margin-right: 10px;
+}
+
+/* Message content */
+.telegram-carousel .telegram-message .message-content {
+    display: flex;
+    flex-direction: column;
+}
