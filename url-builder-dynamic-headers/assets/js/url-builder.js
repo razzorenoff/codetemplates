@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    if (window.location.pathname !== '/bildungsangebot/') {
+    if (window.location.pathname.indexOf('/bildungsangebot/') !== 0) {
         console.log('Not on the Bildungsangebot page. Exiting...');
         return;
     }
@@ -16,7 +16,6 @@ jQuery(document).ready(function ($) {
     const initialTitle = titleContainer.html();
 
     function updateURLAndTitle() {
-        const params = new URLSearchParams();
         let filterEbenen = [];
         let filterThemengebiet = [];
 
@@ -32,23 +31,20 @@ jQuery(document).ready(function ($) {
         console.log('Selected Ebenen:', filterEbenen);
         console.log('Selected Themengebiet:', filterThemengebiet);
 
-        // Обновляем параметры URL только если есть фильтры
-        if (filterEbenen.length) {
-            params.set('ebenen', filterEbenen.join(','));
-        }
-        if (filterThemengebiet.length) {
-            params.set('themengebiet', filterThemengebiet.join(','));
-        }
+        // Формируем URL в формате /bildungsangebot/ebenen/themengebiet
+        const urlPath = [
+            '/bildungsangebot',
+            ...filterEbenen,
+            ...filterThemengebiet,
+        ].join('/');
 
-        const hasParams = params.toString();
-        const newURL = hasParams ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
-        console.log('New URL:', newURL);
+        console.log('New URL:', urlPath);
 
         // Обновляем URL
-        window.history.pushState({}, '', newURL);
+        window.history.pushState({}, '', urlPath);
 
         // Формируем новый заголовок
-        if (hasParams) {
+        if (filterEbenen.length || filterThemengebiet.length) {
             const baseTitle = 'Bildungsangebot am ZbW:';
             const filtersText = [...filterEbenen, ...filterThemengebiet].join(', ');
 
@@ -82,8 +78,8 @@ jQuery(document).ready(function ($) {
         // Сбрасываем все чекбоксы
         checkboxes.prop('checked', false);
 
-        // Удаляем параметры из URL
-        window.history.replaceState({}, '', window.location.pathname);
+        // Удаляем параметры из URL, возвращаем только /bildungsangebot/
+        window.history.replaceState({}, '', '/bildungsangebot/');
 
         // Восстанавливаем исходный заголовок
         titleContainer.html(initialTitle);
@@ -95,21 +91,26 @@ jQuery(document).ready(function ($) {
     }
 
     function initFiltersFromURL() {
-        const params = new URLSearchParams(window.location.search);
-        const filterEbenen = params.get('ebenen') ? params.get('ebenen').split(',') : [];
-        const filterThemengebiet = params.get('themengebiet') ? params.get('themengebiet').split(',') : [];
+        const pathParts = window.location.pathname.split('/').filter(Boolean); // Разделяем путь
+        const pageIndex = pathParts.indexOf('bildungsangebot');
 
-        console.log('Filters from URL:', { filterEbenen, filterThemengebiet });
+        if (pageIndex === -1) {
+            return;
+        }
+
+        const filters = pathParts.slice(pageIndex + 1); // Берем всё, что идет после /bildungsangebot/
+
+        console.log('Filters from URL:', filters);
 
         checkboxes.each(function () {
             const value = $(this).val();
-            if (filterEbenen.includes(value) || filterThemengebiet.includes(value)) {
+            if (filters.includes(value)) {
                 $(this).prop('checked', true);
             }
         });
 
         // Только обновляем заголовок, если есть параметры
-        if (filterEbenen.length || filterThemengebiet.length) {
+        if (filters.length) {
             updateURLAndTitle();
         }
     }
