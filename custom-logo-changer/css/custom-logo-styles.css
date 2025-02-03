@@ -1,0 +1,18 @@
+/* Основной логотип */
+.logo .main-logo {
+    display: block;
+}
+
+/* Sticky-логотип */
+.logo .main-logo.sticky-logo {
+    display: none;
+}
+
+/* Sticky-режим (включается при наличии класса sticky-start) */
+header.styler-header-default.sticky-start .logo .main-logo {
+    display: none;
+}
+
+header.styler-header-default.sticky-start .logo .main-logo.sticky-logo {
+    display: block;
+}
