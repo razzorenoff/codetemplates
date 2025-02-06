@@ -1,0 +1,14 @@
+.membre-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.membre-item {
+    text-align: center;
+}
+
+.membre-image img {
+    border-radius: 50%;
+    max-width: 100px;
+    height: auto;
+}
